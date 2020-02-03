@@ -1,5 +1,5 @@
 <template>
-    <div :visibility=!visible v-if="!visible">
+    <div :visibility=!visible v-if="!visible" class="comments-wrap">
         <template v-for="(comment, index) in comments">
             <b-card :key="index"
               no-body 
@@ -13,12 +13,12 @@
                             alt="cat"
                         ></b-img>
                     </b-col>
-                    <b-col md="9">
-                        <b-card-body :title="comment.name">
-                            <b-card-text> промурчал</b-card-text>
-
-                            <b-card-text>{{ comment.body }}</b-card-text>
-                        </b-card-body>
+                    <b-col md="9" >
+                        <h4 class="comment-text-wrap">
+                            {{ comment.name }}
+                            <span class="mini"> промурчал</span>
+                        </h4>
+                        <b-card-text>{{ comment.body }}</b-card-text>
                     </b-col>
                 </b-row>
             </b-card>
@@ -48,8 +48,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h4 {
+    font-size: 1.3em;
+    margin-bottom: 0.5em;
+}
+
 .comment {
    width: 80%;
    margin-left: 10%;
+   background: #ebfaff;
+}
+
+.comment-text-wrap {
+    padding: 0;
+}
+
+.mini {
+    font-size: 0.7em;
+    color: #6a7581;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
-  <b-container fluid>
-    <b-row>
-      <b-col cols="9">
+  <b-container >
+    <b-row class="content">
+       <b-col cols="12" lg="9" >
         <Posts 
         :author="author" 
         :text="text" />
       </b-col>
-      <b-col cols="3" class="right">
+      <b-col cols="8" offset="2" sm="6" offset-sm="3" offset-lg="0" lg="3" class="right">
        <Form 
        @searchAuthor="author=$event" 
        @searchPostText="text=$event"
@@ -39,4 +39,11 @@ export default {
   background: #cecece;
   margin-bottom: 2em;
 }
+
+ @media (max-width: 991.98px) {
+    .content {
+      flex-direction: column-reverse;
+}
+
+ }
 </style>

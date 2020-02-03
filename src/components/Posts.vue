@@ -1,8 +1,8 @@
 <template>
     <div>
         <template v-for="(post, index) in fiteredPosts">
-            <b-card :key="index" no-body class="overflow-hidden mb-4 p-2 card-item">
-                <b-row no-gutters>
+            <b-card :key="index" no-body class="overflow-hidden p-2 card-wrap">
+                <b-row no-gutters class="card-item">
                     <b-col md="3">
                         <b-img
                             src="https://placekitten.com/200/150"
@@ -11,23 +11,25 @@
                             alt="cat"
                         ></b-img>
                     </b-col>
-                    <b-col md="9">
+                    <b-col md="9" class="text-wrap">
                         <b-card-text class="author">{{ post.name }}</b-card-text>
                         <b-card-body 
-                        class="card-wrap"
+                        class="text"
                         :title="post.title">
                             <b-card-text>{{ post.body }}</b-card-text>
                         </b-card-body>
+
+                        <b-button
+                            variant="link"
+                            class="link"
+                            @click="getComments(post.id)"
+                            v-if="visible"
+                        >
+                            Открыть комментарии
+                        </b-button>
+
                     </b-col>
                 </b-row>
-                <b-button
-                    variant="link"
-                    class="link"
-                    @click="getComments(post.id)"
-                    v-if="visible"
-                >
-                Открыть комментарии
-                </b-button>
 
                 <Comments :id="post.id" :visible="visible" />
 
@@ -118,18 +120,35 @@ export default {
     text-align: left;
 }
 
-.card-item {
-    background: #ebfaff;
+.card-wrap {
+    border: none;
 }
 
-.card-wrap {
+.card-item {
+    background: #ebfaff;
+    padding: 1em
+}
+
+.text-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+h4 {
+    font-size: 1.3em;
+    margin-bottom: 0.5em;
+}
+
+
+.text {
     padding-top: 0;
 }
 
 .author {
     padding-left: 1.25rem;
     margin-bottom: 0;
-    color: #3f4852;
+    color: #6a7581;
+    font-size: 0.9em;
 }
 
 .link {
