@@ -5,7 +5,7 @@
                 <b-row no-gutters>
                     <b-col md="3">
                         <b-img
-                            src="https://placekitten.com/200/200"
+                            src="https://placekitten.com/200/150"
                             fluid
                             class="rounded-0"
                             alt="cat"
@@ -18,14 +18,31 @@
                         </b-card-body>
                     </b-col>
                 </b-row>
-                <b-button variant="link" class="link" :data-id="post.id">Link</b-button>
+                <b-button
+                    variant="link"
+                    class="link"
+                    @click="getComments(post.id)"
+                    v-if="visible"
+                >Open</b-button>
+
+                <Comments :id="post.id" :visible="visible" />
+
+                <b-button variant="link" class="link" @click="toggle" v-if="!visible">Close</b-button>
             </b-card>
         </template>
     </div>
 </template>
 
 <script>
+import Comments from "./Comments.vue";
+
 export default {
+    components: {
+        Comments
+    },
+    data: () => ({
+        visible: true
+    }),
     computed: {
         posts() {
             const posts = this.$store.getters.posts;
@@ -33,16 +50,37 @@ export default {
             let newPosts = [];
 
             if (posts.length !== 0 && users.length !== 0) {
-                return newPosts = posts.map(post => {
+                return (newPosts = posts.map(post => {
                     const usr = users.filter(user => {
                         return user.id === post.userId;
                     });
 
                     const { name } = usr[0];
                     return { name: name, ...post };
-                });
+                }));
             }
             return newPosts;
+        },
+        comments() {
+            return this.$store.getters.comments;
+        }
+    },
+    methods: {
+        getComments(id) {
+            this.visible = !this.visible;
+            console.log("Posts visible", this.visible);
+            // console.log(id, this.$store.getters.commentsById(id));
+            if (this.$store.getters.commentsById(id).length !== 0) {
+                return this.$store.getters.commentsById(id);
+            } else {
+                this.$store.dispatch("fetchCommentsById", id);
+            }
+        },
+        toggle() {
+            //   visibility = this.visibility
+            this.visible = true;
+                        console.log('toggle', this.visible)
+
         }
     },
     mounted: function() {
