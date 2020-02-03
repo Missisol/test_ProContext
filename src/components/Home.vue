@@ -37,5 +37,6 @@ export default {
 <style scoped>
 .right {
   background: #cecece;
+  margin-bottom: 2em;
 }
 </style>

@@ -2,7 +2,8 @@
     <div :visibility=!visible v-if="!visible">
         <template v-for="(comment, index) in comments">
             <b-card :key="index"
-              no-body class="overflow-hidden mb-4 p-2">
+              no-body 
+              class="overflow-hidden p-2 comment">
                 <b-row no-gutters>
                     <b-col md="3">
                         <b-img
@@ -47,4 +48,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.comment {
+   width: 80%;
+   margin-left: 10%;
+}
 </style>

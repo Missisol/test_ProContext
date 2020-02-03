@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-for="(post, index) in fiteredPosts">
-            <b-card :key="index" no-body class="overflow-hidden mb-4 p-2">
+            <b-card :key="index" no-body class="overflow-hidden mb-4 p-2 card-item">
                 <b-row no-gutters>
                     <b-col md="3">
                         <b-img
@@ -12,8 +12,10 @@
                         ></b-img>
                     </b-col>
                     <b-col md="9">
-                        <b-card-text>{{ post.name }}</b-card-text>
-                        <b-card-body :title="post.title">
+                        <b-card-text class="author">{{ post.name }}</b-card-text>
+                        <b-card-body 
+                        class="card-wrap"
+                        :title="post.title">
                             <b-card-text>{{ post.body }}</b-card-text>
                         </b-card-body>
                     </b-col>
@@ -30,7 +32,7 @@
                 <Comments :id="post.id" :visible="visible" />
 
                 <b-button 
-                varint="link" 
+                variant="link" 
                 class="link" 
                 @click="toggle" 
                 v-if="!visible"
@@ -112,6 +114,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card {
+    text-align: left;
+}
+
+.card-item {
+    background: #ebfaff;
+}
+
+.card-wrap {
+    padding-top: 0;
+}
+
+.author {
+    padding-left: 1.25rem;
+    margin-bottom: 0;
+    color: #3f4852;
+}
+
 .link {
     text-align: end;
 }

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="filters">
       <h3>Фильтры</h3>
         <b-form-group id="input-group-1" label="Имя/название" label-for="input-2">
             <b-form-input id="input-1" v-model="author" @input="searchAuthor"
@@ -34,4 +34,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.filters {
+    text-align: left;
+    margin-top: 1em;
+}
 </style>
