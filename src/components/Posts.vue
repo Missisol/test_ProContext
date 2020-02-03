@@ -1,6 +1,6 @@
 <template>
     <div>
-        <template v-for="(post, index) in posts">
+        <template v-for="(post, index) in fiteredPosts">
             <b-card :key="index" no-body class="overflow-hidden mb-4 p-2">
                 <b-row no-gutters>
                     <b-col md="3">
@@ -23,11 +23,20 @@
                     class="link"
                     @click="getComments(post.id)"
                     v-if="visible"
-                >Open</b-button>
+                >
+                Открыть комментарии
+                </b-button>
 
                 <Comments :id="post.id" :visible="visible" />
 
-                <b-button variant="link" class="link" @click="toggle" v-if="!visible">Close</b-button>
+                <b-button 
+                varint="link" 
+                class="link" 
+                @click="toggle" 
+                v-if="!visible"
+                >
+                Скрыть комментарии
+                </b-button>
             </b-card>
         </template>
     </div>
@@ -40,6 +49,7 @@ export default {
     components: {
         Comments
     },
+    props: ["author", "text"],
     data: () => ({
         visible: true
     }),
@@ -59,7 +69,20 @@ export default {
                     return { name: name, ...post };
                 }));
             }
+
             return newPosts;
+        },
+        fiteredPosts() {
+            const posts = this.posts;
+            return posts
+                .filter(post => {
+                    let authorName = post.name;
+                    return authorName.toLowerCase().includes(this.author);
+                })
+                .filter(post => {
+                    let postText = post.body;
+                    return postText.toLowerCase().includes(this.text);
+                });
         },
         comments() {
             return this.$store.getters.comments;
@@ -68,8 +91,6 @@ export default {
     methods: {
         getComments(id) {
             this.visible = !this.visible;
-            console.log("Posts visible", this.visible);
-            // console.log(id, this.$store.getters.commentsById(id));
             if (this.$store.getters.commentsById(id).length !== 0) {
                 return this.$store.getters.commentsById(id);
             } else {
@@ -77,10 +98,8 @@ export default {
             }
         },
         toggle() {
-            //   visibility = this.visibility
             this.visible = true;
-                        console.log('toggle', this.visible)
-
+            console.log("toggle", this.visible);
         }
     },
     mounted: function() {

@@ -2,10 +2,15 @@
   <b-container fluid>
     <b-row>
       <b-col cols="9">
-        <Posts />
+        <Posts 
+        :author="author" 
+        :text="text" />
       </b-col>
       <b-col cols="3" class="right">
-       <Form />
+       <Form 
+       @searchAuthor="author=$event" 
+       @searchPostText="text=$event"
+       />
       </b-col>
     </b-row>
   </b-container>
@@ -20,7 +25,12 @@ export default {
     Posts,
     Form
   },
-    
+    data () {
+      return {
+      author: '',
+      text: ''
+      }
+    }
   }</script>
 
 

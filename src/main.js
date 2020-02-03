@@ -10,8 +10,9 @@ Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
 
-
 new Vue({
   store,
   render: h => h(App),
 }).$mount('#app')
+
+export const eventEmitter = new Vue()

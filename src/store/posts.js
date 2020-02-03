@@ -16,7 +16,6 @@ export default {
       try {
         const response = await fetch('https://jsonplaceholder.typicode.com/posts')
         const result = await response.json()
-        // console.log(result)
         commit('setPosts', result)
       } catch (error) {
         throw error
@@ -26,7 +25,6 @@ export default {
       try {
         const response = await fetch(`https://jsonplaceholder.typicode.com/users`)
         const result = await response.json()
-        // console.log(result)
         commit('setUsers', result)
 
       } catch (error) {

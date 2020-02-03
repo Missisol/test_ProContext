@@ -5,7 +5,6 @@ export default {
     mutations: {
         setComments(state, payload) {
             state.comments.push( ...payload)
-            // console.log(state.comments)
         }
     },
     actions: {
@@ -13,7 +12,6 @@ export default {
             try {
                 const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${payload}`)
                 const result = await response.json()
-                // console.log(result)
                 commit('setComments', result)
               } catch (error) {
                 throw error
