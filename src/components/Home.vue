@@ -31,12 +31,10 @@ export default {
         Posts,
         Form
     },
-    data() {
-        return {
-            author: "",
-            text: ""
-        }
-    }
+    data: () => ({
+        author: "",
+        text: ""
+    })
 };
 </script>
 

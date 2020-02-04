@@ -29,12 +29,10 @@
 <script>
 export default {
     
-    data() {
-        return {
-            author: '',
-            text: ''
-        };
-    },
+    data: () => ({
+        author: '',
+        text: ''
+    }),
     methods: {
         searchAuthor() {
             let author = this.author.toLowerCase()
