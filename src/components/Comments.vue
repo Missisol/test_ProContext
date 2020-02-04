@@ -45,8 +45,6 @@ export default {
             const id = this.id
             return this.$store.getters.commentsById(id)
         }
-    },
-    methods: {
     }
 };
 </script>

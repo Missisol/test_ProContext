@@ -1,7 +1,7 @@
 <template>
     <div>
         <template 
-        v-for="(post, index) in fiteredPosts"
+        v-for="(post, index) in filteredPosts"
         >
             <b-card 
             :key="index" 
@@ -87,7 +87,7 @@ export default {
 
             return newPosts;
         },
-        fiteredPosts() {
+        filteredPosts() {
             const posts = this.posts;
             return posts
                 .filter(post => {
@@ -99,9 +99,6 @@ export default {
                     return postText.toLowerCase().includes(this.text);
                 });
         },
-        comments() {
-            return this.$store.getters.comments;
-        }
     },
     methods: {
         getComments(id) {
