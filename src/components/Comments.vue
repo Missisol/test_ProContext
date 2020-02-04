@@ -1,9 +1,12 @@
 <template>
-    <div :visibility=!visible v-if="!visible" class="comments-wrap">
+    <div 
+    :visibility=!visible 
+    :class="[id !== clickId ? defaultClass : '']">
         <template v-for="(comment, index) in comments">
-            <b-card :key="index"
-              no-body 
-              class="overflow-hidden p-2 comment">
+            <b-card 
+            :key="index"
+            no-body 
+            class="overflow-hidden p-2 comment">
                 <b-row no-gutters>
                     <b-col md="3">
                         <b-img
@@ -15,7 +18,7 @@
                     </b-col>
                     <b-col md="9" >
                         <h4 class="comment-text-wrap">
-                            {{ comment.name }}
+                            {{ comment.name }} 
                             <span class="mini"> промурчал</span>
                         </h4>
                         <b-card-text>{{ comment.body }}</b-card-text>
@@ -24,17 +27,18 @@
             </b-card>
         </template>
     </div>
-
 </template>
 
 <script>
 export default {
     props: [
         'id',
-        'visible'
+        'visible',
+        'clickId'
     ],
     data: () => ({
-        visibility: false
+        visibility: false,
+        defaultClass: 'hidden',
     }),
     computed: {
         comments() {
@@ -66,5 +70,9 @@ h4 {
 .mini {
     font-size: 0.7em;
     color: #6a7581;
+}
+
+.hidden {
+    display: none
 }
 </style>

@@ -1,8 +1,17 @@
 <template>
     <div>
-        <template v-for="(post, index) in fiteredPosts">
-            <b-card :key="index" no-body class="overflow-hidden p-2 card-wrap">
-                <b-row no-gutters class="card-item">
+        <template 
+        v-for="(post, index) in fiteredPosts"
+        >
+            <b-card 
+            :key="index" 
+            no-body 
+            class="overflow-hidden p-2 card-wrap"
+            >
+                <b-row 
+                no-gutters 
+                class="card-item"
+                >
                     <b-col md="3">
                         <b-img
                             src="https://placekitten.com/200/150"
@@ -21,23 +30,23 @@
 
                         <b-button
                             variant="link"
-                            class="link"
+                            :class="[post.id === clickId ? defaultClass : '']" 
                             @click="getComments(post.id)"
-                            v-if="visible"
                         >
-                            Открыть комментарии
+                            Открыть комментарии 
                         </b-button>
 
                     </b-col>
                 </b-row>
 
-                <Comments :id="post.id" :visible="visible" />
+                <Comments 
+                :id="post.id" 
+                :clickId="clickId" />
 
                 <b-button 
                 variant="link" 
-                class="link" 
+                :class="[post.id !== clickId ? defaultClass : '', 'link']" 
                 @click="toggle" 
-                v-if="!visible"
                 >
                 Скрыть комментарии
                 </b-button>
@@ -55,7 +64,9 @@ export default {
     },
     props: ["author", "text"],
     data: () => ({
-        visible: true
+        visible: true,
+        clickId: '',
+        defaultClass: 'hidden',
     }),
     computed: {
         posts() {
@@ -94,6 +105,7 @@ export default {
     },
     methods: {
         getComments(id) {
+            this.clickId = id
             this.visible = !this.visible;
             if (this.$store.getters.commentsById(id).length !== 0) {
                 return this.$store.getters.commentsById(id);
@@ -102,8 +114,8 @@ export default {
             }
         },
         toggle() {
+            this.clickId = ''
             this.visible = true;
-            console.log("toggle", this.visible);
         }
     },
     mounted: function() {
@@ -139,7 +151,6 @@ h4 {
     margin-bottom: 0.5em;
 }
 
-
 .text {
     padding-top: 0;
 }
@@ -153,5 +164,18 @@ h4 {
 
 .link {
     text-align: end;
+}
+
+.hidden {
+    display: none
+}
+
+.btn.btn-link {
+    text-align: right;
+    text-decoration: none;
+}
+
+.link {
+    margin-right: 10%;
 }
 </style>
