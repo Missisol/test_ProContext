@@ -13,10 +13,7 @@
             offset-lg="0" lg="3" 
             class="right"
             >
-                <Form 
-                @searchAuthor="author=$event" 
-                @searchPostText="text=$event" 
-                />
+                <Form />
             </b-col>
         </b-row>
     </b-container>

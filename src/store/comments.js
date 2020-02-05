@@ -22,10 +22,8 @@ export default {
         comments(state) {
             return state.comments
         },
-        commentsById(state) {
-            return postId => {
-                return state.comments.filter(comment => comment.postId === postId)
-            }
+        commentsById: (state) => postId => {
+            return state.comments.filter(comment => comment.postId === postId)
         }
     }
 }

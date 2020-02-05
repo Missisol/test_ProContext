@@ -2,6 +2,7 @@ export default {
     state: {
         posts: [],
         users: [],
+        postsWithName: []
     },
     mutations: {
         setPosts(state, payload) {
@@ -9,6 +10,13 @@ export default {
         },
         setUsers(state, payload) {
             state.users = payload
+        },
+        setPostsWithName(state) {
+            state.postsWithName = state.posts.map(post => {
+                const usr = state.users.filter(user => user.id === post.userId);
+                const { name } = usr[0];
+                return { name: name, ...post };
+            });
         }
     },
     actions: {
@@ -26,11 +34,12 @@ export default {
                 const response = await fetch(`https://jsonplaceholder.typicode.com/users`)
                 const result = await response.json()
                 commit('setUsers', result)
+                commit('setPostsWithName')
 
             } catch (error) {
                 throw error
             }
-        }
+        },
     },
     getters: {
         posts(state) {
@@ -39,5 +48,8 @@ export default {
         users(state) {
             return state.users
         },
+        postsWithName(state) {
+            return state.postsWithName
+        }
     }
 }

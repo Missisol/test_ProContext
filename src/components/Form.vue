@@ -7,8 +7,8 @@
         label-for="input-2">
             <b-form-input 
             id="input-1" 
-            v-model="author" 
-            @input="searchAuthor"
+            v-model="author"
+            :value="author"
             required placeholder="фильтр по имени автора пост"
             ></b-form-input>
         </b-form-group>
@@ -18,8 +18,7 @@
         label-for="input-2">
             <b-form-input 
             id="input-2" 
-            v-model="text" 
-            @input="searchPostText" 
+            v-model="text"
             required placeholder="фильтр по тексту поста"
             ></b-form-input>
         </b-form-group>
@@ -28,21 +27,26 @@
 
 <script>
 export default {
-    
-    data: () => ({
-        author: '',
-        text: ''
-    }),
-    methods: {
-        searchAuthor() {
-            let author = this.author.toLowerCase()
-            this.$emit('searchAuthor', author)
-        },
-        searchPostText() {
-            let text = this.text.toLowerCase()
-            this.$emit('searchPostText', text)
+    computed: {
+        author: {
+            get() {
+                return this.$store.getters.author
+            },
+            set(value) {
+                const author = value.toLowerCase().trim()
+                this.$store.commit('searchAuthor', author)
+            }
+        }, 
+        text: {
+            get() {
+                return this.$store.getters.text
+            },
+            set(value) {
+                const text = value.toLowerCase().trim()
+                this.$store.commit('searchText', text)
+            }
         }
-    }
+    },
 };
 </script>
 

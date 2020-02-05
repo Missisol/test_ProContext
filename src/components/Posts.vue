@@ -62,40 +62,27 @@ export default {
     components: {
         Comments
     },
-    props: ["author", "text"],
     data: () => ({
         visible: true,
         clickId: '',
         defaultClass: 'hidden',
     }),
     computed: {
-        posts() {
-            const posts = this.$store.getters.posts;
-            const users = this.$store.getters.users;
-            let newPosts = [];
-
-            if (posts.length !== 0 && users.length !== 0) {
-                return (newPosts = posts.map(post => {
-                    const usr = users.filter(user => {
-                        return user.id === post.userId;
-                    });
-
-                    const { name } = usr[0];
-                    return { name: name, ...post };
-                }));
-            }
-
-            return newPosts;
+        author() {
+            return this.$store.getters.author
+        },
+        text() {
+            return this.$store.getters.text
         },
         filteredPosts() {
-            const posts = this.posts;
+            const posts = this.$store.getters.postsWithName;
             return posts
                 .filter(post => {
                     let authorName = post.name;
                     return authorName.toLowerCase().includes(this.author);
                 })
                 .filter(post => {
-                    let postText = post.body;
+                    const postText = post.body;
                     return postText.toLowerCase().includes(this.text);
                 });
         },
