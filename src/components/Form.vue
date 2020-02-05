@@ -8,7 +8,6 @@
             <b-form-input 
             id="input-1" 
             v-model="author"
-            :value="author"
             required placeholder="фильтр по имени автора пост"
             ></b-form-input>
         </b-form-group>
